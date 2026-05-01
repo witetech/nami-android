@@ -29,3 +29,4 @@ dependencyResolutionManagement {
 rootProject.name = "Nami"
 include(":app")
 include(":design-system")
+include(":viewmodel")
