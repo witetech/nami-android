@@ -18,6 +18,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data object LoginRoute
 
+@Serializable
+data object ChatRoute
+
+@Serializable
+data object ChatHistoryRoute
+
 @Composable
 internal fun RootNavigation() {
     val scope = rememberCoroutineScope()
@@ -38,15 +44,29 @@ internal fun RootNavigation() {
                         snackbarHostState.showSnackbar("Message")
                     }
                 },
-                onChatHistoryClick = {},
+                onChatHistoryClick = {
+                    scope.launch {
+                        navController.navigate(ChatRoute)
+                    }
+                },
                 onChatClick = {},
                 onSettingsClick = {}
             )
         }
     ) {
-        NavHost(navController, LoginRoute) {
+        NavHost(navController, ChatHistoryRoute) {
             composable<LoginRoute> {
-                appModule.authModule.LoginScreenDestination(onLoggedIn = {})
+                appModule.authModule.LoginScreenDestination(onLoggedIn = {
+                    navController.navigate(ChatRoute)
+                })
+            }
+
+            composable<ChatRoute> {
+                appModule.chatModule.ChatScreenDestination()
+            }
+
+            composable<ChatHistoryRoute> {
+                appModule.chatHistoryModule.ChatHistoryScreenDestination()
             }
         }
     }

@@ -29,5 +29,8 @@ dependencyResolutionManagement {
 rootProject.name = "Nami"
 include(":app")
 include(":auth")
+include(":chat")
+include(":chat-history")
 include(":design-system")
 include(":viewmodel")
+

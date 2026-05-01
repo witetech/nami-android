@@ -74,18 +74,18 @@ private val pages = listOf(
 )
 
 @Composable
-internal fun LoginScreen(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit) {
+internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
-    val loginState by loginViewModel.state.collectAsState()
+    val loginState by viewModel.state.collectAsState()
     val pagerState = rememberPagerState { pages.size }
     val snackbarHostState = remember { SnackbarHostState() }
 
     val errorMessage = stringResource(R.string.login_error)
 
     LaunchedEffect(key1 = Unit) {
-        loginViewModel.viewEvent.onEach { viewEvent ->
+        viewModel.viewEvent.onEach { viewEvent ->
             when (viewEvent) {
                 LoginEvent.Success -> {
                     onLoggedIn()
@@ -161,7 +161,7 @@ internal fun LoginScreen(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit)
 
                 Button(
                     enabled = !loginState.loading,
-                    onClick = { loginViewModel.loginWithGoogle(context) },
+                    onClick = { viewModel.loginWithGoogle(context) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
@@ -220,7 +220,7 @@ private class TestLoginViewModel :
 private fun LoginScreenPreview() {
     NamiTheme {
         LoginScreen(
-            loginViewModel = TestLoginViewModel(),
+            viewModel = TestLoginViewModel(),
             onLoggedIn = {}
         )
     }

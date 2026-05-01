@@ -45,7 +45,7 @@ class AuthModule(applicationContext: Context) {
     }
 
     @Composable
-    private fun makeLoginViewModel(): LoginViewModel = viewModel {
+    private fun makeViewModel(): LoginViewModel = viewModel {
         RealLoginViewModel(
             loginWithGoogle = loginWithGoogle,
             stateDelegate = StateDelegate(),
@@ -56,7 +56,7 @@ class AuthModule(applicationContext: Context) {
     @Composable
     fun LoginScreenDestination(onLoggedIn: () -> Unit) {
         LoginScreen(
-            loginViewModel = makeLoginViewModel(),
+            viewModel = makeViewModel(),
             onLoggedIn = onLoggedIn
         )
     }
