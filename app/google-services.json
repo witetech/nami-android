@@ -1,0 +1,29 @@
+{
+    "project_info": {
+        "project_number": "1075308777416",
+        "project_id": "nami-774b7",
+        "storage_bucket": "nami-774b7.firebasestorage.app"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:1075308777416:android:a326d1d085ac36e5cbbafd",
+                "android_client_info": {
+                    "package_name": "chat.nami"
+                }
+            },
+            "oauth_client": [],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyB9UCTqGTtVsQkFLHts9QOuHD-xm1EYtPI"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": []
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}
