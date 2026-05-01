@@ -1,0 +1,37 @@
+# Compiled class file
+*.class
+
+# Kotlin
+.kotlin/
+
+# Log file
+*.log
+
+# Local configuration file
+local.properties
+
+# Android Studio
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+
+# Keystore files
+*.jks
+*.keystore
+key.properties
+
+# IntelliJ
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Gradle files
+.gradle/
+build/
+
+# OS-specific files
+.DS_Store
