@@ -4,6 +4,7 @@ agp = "9.2.0"
 composeBom = "2026.04.01"
 coreKtx = "1.18.0"
 kotlin = "2.3.21"
+ktlint = "14.2.0"
 lifecycleRuntimeKtx = "2.10.0"
 
 [libraries]
@@ -21,3 +22,4 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
