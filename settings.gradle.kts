@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":design-system")
+
+
 pluginManagement {
     repositories {
         google {
