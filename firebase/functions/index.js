@@ -17,11 +17,8 @@ const getUserDocumentData = (user) => {
 
     for (const field of [
         "email",
-        "emailVerified",
         "displayName",
         "photoURL",
-        "phoneNumber",
-        "disabled",
         "creationTime",
     ]) {
         const fieldValue = user[field];

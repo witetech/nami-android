@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_1">Access The World\'s Best AI Models</string>
+    <string name="onboarding_description_1">Join thousands using GPT-5, Claude, Gemini &amp; more in one app</string>
+
+    <string name="onboarding_title_2">One Subscription. Unlimited Possibilities.</string>
+    <string name="onboarding_description_2">Save hundreds vs paying for each AI platform separately</string>
+
+    <string name="onboarding_title_3">Persistent Context Across Models</string>
+    <string name="onboarding_description_3">Keep your entire conversation as you switch between AI models—never start over</string>
+
+    <string name="onboarding_terms">By continuing, you agree to our</string>
+    <string name="onboarding_terms_of_service">Terms of Service</string>
+    <string name="onboarding_sign_in_google">Sign in with Google</string>
+
+    <string name="login_error">Something went wrong</string>
+</resources>

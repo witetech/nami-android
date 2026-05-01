@@ -10,5 +10,5 @@ data class UserDto(
     val photoURL: String? = null,
     val phoneNumber: String? = null,
     val disabled: String? = null,
-    val creationTime: String? = null,
+    val creationTime: String? = null
 )

@@ -18,9 +18,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 private const val WEB_CLIENT_ID =
     "1075308777416-n79brben8kpfujhtakfd4ibroak6gcbk.apps.googleusercontent.com"
@@ -65,9 +65,15 @@ internal class RealAuthRepository(
                     null
                 )
             ).addOnSuccessListener {
-                val user = firebaseAuth.currentUser
-                if (user != null) {
-                    // continuation.resume(User(id = user.uid))
+                val uid = firebaseAuth.currentUser?.uid
+                if (uid != null) {
+                    firebaseFirestore.collection("users").document(uid).get()
+                        .addOnSuccessListener { result ->
+                            val userDto = result.toObject<UserDto>()
+                            continuation.resume(userMapper.mapToUser(uid, userDto!!))
+                        }.addOnFailureListener { exception ->
+                            continuation.resumeWithException(exception)
+                        }
                 } else {
                     continuation.resumeWithException(IllegalStateException())
                 }

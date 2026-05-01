@@ -47,9 +47,7 @@ class AuthModule(applicationContext: Context) {
     @Composable
     private fun makeLoginViewModel(): LoginViewModel = viewModel {
         RealLoginViewModel(
-            getUser = getUser,
             loginWithGoogle = loginWithGoogle,
-            logout = logout,
             stateDelegate = StateDelegate(),
             eventDelegate = EventDelegate()
         )
