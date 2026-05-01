@@ -25,7 +25,7 @@ internal fun RootNavigation() {
         drawerState = drawerState,
         drawerContent = {
             DrawerContent(
-                userName = appModule.authModule.getUser()?.id ?: "",
+                userName = "asd",
                 recents = mapOf(),
                 onNewChatClick = {},
                 onChatHistoryClick = {},

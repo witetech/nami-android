@@ -4,7 +4,7 @@ import android.content.Context
 import chat.nami.auth.domain.model.User
 
 internal fun interface GetUser {
-    operator fun invoke(): User?
+    suspend operator fun invoke(): User?
 }
 
 internal fun interface LoginWithGoogle {

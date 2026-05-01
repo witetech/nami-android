@@ -7,6 +7,8 @@ import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
+import chat.nami.auth.data.mapper.UserMapper
+import chat.nami.auth.data.model.UserDto
 import chat.nami.auth.domain.model.User
 import chat.nami.auth.domain.repository.AuthRepository
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
@@ -14,20 +16,33 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import kotlinx.coroutines.suspendCancellableCoroutine
 
 private const val WEB_CLIENT_ID =
     "1075308777416-n79brben8kpfujhtakfd4ibroak6gcbk.apps.googleusercontent.com"
 
 internal class RealAuthRepository(
     private val firebaseAuth: FirebaseAuth,
-    private val credentialManager: CredentialManager
+    private val firebaseFirestore: FirebaseFirestore,
+    private val credentialManager: CredentialManager,
+    private val userMapper: UserMapper
 ) : AuthRepository {
 
-    override fun getUser(): User? = firebaseAuth.currentUser?.let {
-        User(it.uid)
+    override suspend fun getUser(): User? {
+        val uid = firebaseAuth.currentUser?.uid ?: return null
+        return suspendCancellableCoroutine { continuation ->
+            firebaseFirestore.collection("users").document(uid).get()
+                .addOnSuccessListener { result ->
+                    val userDto = result.toObject<UserDto>()
+                    continuation.resume(userMapper.mapToUser(uid, userDto!!))
+                }.addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        }
     }
 
     override suspend fun loginWithGoogle(activityContext: Context): User {
@@ -52,7 +67,7 @@ internal class RealAuthRepository(
             ).addOnSuccessListener {
                 val user = firebaseAuth.currentUser
                 if (user != null) {
-                    continuation.resume(User(id = user.uid))
+                    // continuation.resume(User(id = user.uid))
                 } else {
                     continuation.resumeWithException(IllegalStateException())
                 }

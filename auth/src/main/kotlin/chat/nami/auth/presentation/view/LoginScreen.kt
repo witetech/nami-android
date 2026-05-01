@@ -54,7 +54,7 @@ internal fun LoginScreen(loginViewModel: LoginViewModel, onLoggedIn: () -> Unit)
             contentAlignment = Alignment.Center
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = loginState.userId)
+                Text(text = loginState.user?.displayName ?: "")
 
                 Button(
                     enabled = !loginState.loading,
@@ -78,7 +78,7 @@ private class TestLoginViewModel :
     LoginViewModel,
     StateViewModel<LoginState>,
     EventViewModel<LoginEvent> {
-    override val state = MutableStateFlow(LoginState(userId = "123", loading = false))
+    override val state = MutableStateFlow(LoginState(user = null, loading = false))
     override val viewEvent = emptyFlow<LoginEvent>()
 
     override fun loginWithGoogle(activityContext: Context) {

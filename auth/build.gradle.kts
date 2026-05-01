@@ -35,6 +35,7 @@ dependencies {
     implementation(libs.androidx.credentials.auth)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
     implementation(libs.googleid)
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))

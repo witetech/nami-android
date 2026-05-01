@@ -24,7 +24,21 @@ internal class RealLoginViewModel(
     EventViewModel<LoginEvent> by eventDelegate {
 
     init {
-        stateDelegate.setDefaultState(LoginState(userId = getUser()?.id ?: "null", loading = false))
+        stateDelegate.setDefaultState(LoginState(user = null, loading = false))
+        loadUser()
+    }
+
+    private fun loadUser() {
+        viewModelScope.launch {
+            try {
+                val user = getUser()
+                if (user != null) {
+                    stateDelegate.updateState { it.copy(user = user) }
+                }
+            } catch (e: Exception) {
+
+            }
+        }
     }
 
     override fun loginWithGoogle(activityContext: Context) {
@@ -32,7 +46,7 @@ internal class RealLoginViewModel(
         viewModelScope.launch {
             try {
                 val user = loginWithGoogle.invoke(activityContext)
-                stateDelegate.updateState { it.copy(userId = user.id) }
+                stateDelegate.updateState { it.copy(user = user) }
                 eventDelegate.sendEvent(viewModelScope, LoginEvent.Success)
             } catch (e: Exception) {
                 eventDelegate.sendEvent(
@@ -50,7 +64,7 @@ internal class RealLoginViewModel(
         viewModelScope.launch {
             try {
                 logout.invoke()
-                stateDelegate.updateState { it.copy(userId = "null") }
+                stateDelegate.updateState { it.copy(user = null) }
             } catch (e: Exception) {
                 eventDelegate.sendEvent(
                     viewModelScope,
