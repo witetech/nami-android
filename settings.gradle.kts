@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":design-system")
-
-
 pluginManagement {
     repositories {
         google {
@@ -31,3 +28,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Nami"
 include(":app")
+include(":design-system")
