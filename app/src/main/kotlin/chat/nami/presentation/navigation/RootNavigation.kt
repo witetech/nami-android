@@ -8,6 +8,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import chat.nami.auth.domain.model.User
 import chat.nami.di.appModule
 import chat.nami.presentation.view.DrawerContent
 import kotlinx.coroutines.launch
@@ -26,7 +27,7 @@ data object ChatHistoryRoute
 data object SettingsRoute
 
 @Composable
-internal fun RootNavigation() {
+internal fun RootNavigation(user: User?) {
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -36,7 +37,7 @@ internal fun RootNavigation() {
         gesturesEnabled = true,
         drawerContent = {
             DrawerContent(
-                userName = "asd",
+                userName = user?.displayName ?: "",
                 recents = mapOf(),
                 onNewChatClick = {
                     scope.launch {
@@ -73,7 +74,14 @@ internal fun RootNavigation() {
             )
         }
     ) {
-        NavHost(navController, LoginRoute) {
+        NavHost(
+            navController,
+            if (user != null) {
+                ChatRoute
+            } else {
+                LoginRoute
+            }
+        ) {
             composable<LoginRoute> {
                 appModule.authModule.LoginScreenDestination(onLoggedIn = {
                     navController.navigate(ChatRoute) {

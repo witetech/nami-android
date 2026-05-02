@@ -66,4 +66,5 @@ dependencies {
     implementation(project(":chat-history"))
     implementation(project(":design-system"))
     implementation(project(":settings"))
+    implementation(project(":viewmodel"))
 }

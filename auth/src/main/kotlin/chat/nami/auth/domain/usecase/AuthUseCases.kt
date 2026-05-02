@@ -3,7 +3,7 @@ package chat.nami.auth.domain.usecase
 import android.content.Context
 import chat.nami.auth.domain.model.User
 
-internal fun interface GetUser {
+fun interface GetUser {
     suspend operator fun invoke(): User?
 }
 
