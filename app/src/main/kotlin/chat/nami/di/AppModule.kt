@@ -4,6 +4,7 @@ import android.content.Context
 import chat.nami.auth.di.AuthModule
 import chat.nami.chat.di.ChatModule
 import chat.nami.chat.history.di.ChatHistoryModule
+import chat.nami.settings.di.SettingsModule
 
 class AppModule private constructor(applicationContext: Context) {
 
@@ -17,6 +18,10 @@ class AppModule private constructor(applicationContext: Context) {
 
     val chatHistoryModule by lazy {
         ChatHistoryModule(applicationContext)
+    }
+
+    val settingsModule by lazy {
+        SettingsModule(applicationContext)
     }
 
     companion object {

@@ -32,5 +32,5 @@ include(":auth")
 include(":chat")
 include(":chat-history")
 include(":design-system")
+include(":settings")
 include(":viewmodel")
-

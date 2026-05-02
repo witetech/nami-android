@@ -2,10 +2,8 @@ package chat.nami.presentation.navigation
 
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -24,13 +22,14 @@ data object ChatRoute
 @Serializable
 data object ChatHistoryRoute
 
+@Serializable
+data object SettingsRoute
+
 @Composable
 internal fun RootNavigation() {
     val scope = rememberCoroutineScope()
-
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val snackbarHostState = remember { SnackbarHostState() }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -41,23 +40,45 @@ internal fun RootNavigation() {
                 recents = mapOf(),
                 onNewChatClick = {
                     scope.launch {
-                        snackbarHostState.showSnackbar("Message")
+                        drawerState.close()
+                        navController.navigate(ChatRoute) {
+                            popUpTo(navController.graph.id) { inclusive = true }
+                        }
                     }
                 },
                 onChatHistoryClick = {
                     scope.launch {
-                        navController.navigate(ChatRoute)
+                        drawerState.close()
+                        navController.navigate(ChatHistoryRoute) {
+                            popUpTo(navController.graph.id) { inclusive = true }
+                        }
                     }
                 },
-                onChatClick = {},
-                onSettingsClick = {}
+                onChatClick = {
+                    scope.launch {
+                        drawerState.close()
+                        navController.navigate(ChatRoute) {
+                            popUpTo(navController.graph.id) { inclusive = true }
+                        }
+                    }
+                },
+                onSettingsClick = {
+                    scope.launch {
+                        drawerState.close()
+                        navController.navigate(SettingsRoute) {
+                            popUpTo(navController.graph.id) { inclusive = true }
+                        }
+                    }
+                }
             )
         }
     ) {
-        NavHost(navController, ChatHistoryRoute) {
+        NavHost(navController, LoginRoute) {
             composable<LoginRoute> {
                 appModule.authModule.LoginScreenDestination(onLoggedIn = {
-                    navController.navigate(ChatRoute)
+                    navController.navigate(ChatRoute) {
+                        popUpTo(navController.graph.id) { inclusive = true }
+                    }
                 })
             }
 
@@ -67,6 +88,10 @@ internal fun RootNavigation() {
 
             composable<ChatHistoryRoute> {
                 appModule.chatHistoryModule.ChatHistoryScreenDestination()
+            }
+
+            composable<SettingsRoute> {
+                appModule.settingsModule.SettingsScreenDestination()
             }
         }
     }
