@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -48,64 +49,40 @@ import chat.nami.auth.presentation.viewmodel.LoginEvent
 import chat.nami.auth.presentation.viewmodel.LoginState
 import chat.nami.auth.presentation.viewmodel.LoginViewModel
 import chat.nami.design.NamiTheme
-import chat.nami.viewmodel.EventViewModel
-import chat.nami.viewmodel.StateViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-private data class OnboardingPage(val titleRes: Int, val descriptionRes: Int)
-
-private val pages = listOf(
-    OnboardingPage(
-        titleRes = R.string.onboarding_title_1,
-        descriptionRes = R.string.onboarding_description_1
-    ),
-    OnboardingPage(
-        titleRes = R.string.onboarding_title_2,
-        descriptionRes = R.string.onboarding_description_2
-    ),
-    OnboardingPage(
-        titleRes = R.string.onboarding_title_3,
-        descriptionRes = R.string.onboarding_description_3
-    )
-)
-
 @Composable
 internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-
-    val loginState by viewModel.state.collectAsState()
-    val pagerState = rememberPagerState { pages.size }
     val snackbarHostState = remember { SnackbarHostState() }
+    val state by viewModel.state.collectAsState()
 
-    val errorMessage = stringResource(R.string.login_error)
+    Event(
+        viewModel = viewModel,
+        snackbarHostState = snackbarHostState,
+        onLoggedIn = onLoggedIn
+    )
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.viewEvent.onEach { viewEvent ->
-            when (viewEvent) {
-                LoginEvent.Success -> {
-                    onLoggedIn()
-                }
+    Content(
+        state = state,
+        snackbarHostState = snackbarHostState,
+        onLoginClick = viewModel::loginWithGoogle
+    )
+}
 
-                LoginEvent.Error -> {
-                    scope.launch { snackbarHostState.showSnackbar(errorMessage) }
-                }
-            }
-        }.launchIn(this)
-    }
+@Composable
+private fun Content(
+    state: LoginState,
+    snackbarHostState: SnackbarHostState,
+    onLoginClick: (Context) -> Unit
+) {
+    val context = LocalContext.current
+    val pagerState = rememberPagerState { 3 }
 
     Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-            HorizontalPager(
-                modifier = Modifier.weight(1f),
-                state = pagerState
-            ) { page ->
-                val onboardingPage = pages[page]
-
+        Column(Modifier.padding(padding)) {
+            HorizontalPager(modifier = Modifier.weight(1f), state = pagerState) { page ->
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -113,7 +90,7 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                     verticalArrangement = Arrangement.Bottom
                 ) {
                     Text(
-                        text = stringResource(id = onboardingPage.titleRes),
+                        text = stringArrayResource(R.array.onboarding_titles)[page],
                         style = MaterialTheme.typography.headlineLarge,
                         color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold,
@@ -123,7 +100,7 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
-                        text = stringResource(id = onboardingPage.descriptionRes),
+                        text = stringArrayResource(R.array.onboarding_descriptions)[page],
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.75f),
                         fontWeight = FontWeight.Thin,
@@ -141,7 +118,7 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    repeat(pages.size) { index ->
+                    repeat(3) { index ->
                         Box(
                             modifier = Modifier
                                 .size(8.dp)
@@ -160,14 +137,14 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                 }
 
                 Button(
-                    enabled = !loginState.loading,
-                    onClick = { viewModel.loginWithGoogle(context) },
+                    enabled = !state.loading,
+                    onClick = { onLoginClick(context) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
                     shape = RoundedCornerShape(16.dp)
                 ) {
-                    if (loginState.loading) {
+                    if (state.loading) {
                         CircularProgressIndicator(modifier = Modifier.size(24.dp))
                     } else {
                         Text(
@@ -187,7 +164,7 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
                                 url = "https://nami.chat/terms-of-service",
                                 styles = TextLinkStyles(
                                     style = SpanStyle(
-                                        fontWeight = FontWeight.SemiBold,
+                                        fontWeight = FontWeight.Bold,
                                         color = onSurfaceFaint
                                     )
                                 )
@@ -205,23 +182,38 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
     }
 }
 
-private class TestLoginViewModel :
-    LoginViewModel,
-    StateViewModel<LoginState>,
-    EventViewModel<LoginEvent> {
-    override val state = MutableStateFlow(LoginState(loading = false))
-    override val viewEvent = emptyFlow<LoginEvent>()
+@Composable
+private fun Event(
+    viewModel: LoginViewModel,
+    snackbarHostState: SnackbarHostState,
+    onLoggedIn: () -> Unit
+) {
+    val scope = rememberCoroutineScope()
+    val errorMessage = stringResource(R.string.login_error)
 
-    override fun loginWithGoogle(activityContext: Context) = Unit
+    LaunchedEffect(key1 = Unit) {
+        viewModel.viewEvent.onEach { viewEvent ->
+            when (viewEvent) {
+                LoginEvent.Success -> {
+                    onLoggedIn()
+                }
+
+                LoginEvent.Error -> {
+                    scope.launch { snackbarHostState.showSnackbar(errorMessage) }
+                }
+            }
+        }.launchIn(this)
+    }
 }
 
 @Composable
 @Preview
 private fun LoginScreenPreview() {
     NamiTheme {
-        LoginScreen(
-            viewModel = TestLoginViewModel(),
-            onLoggedIn = {}
+        Content(
+            state = LoginState(loading = false),
+            snackbarHostState = SnackbarHostState(),
+            onLoginClick = {}
         )
     }
 }
