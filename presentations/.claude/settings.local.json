@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api *)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(mkdir -p /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/assets /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/references)",
+      "Bash(curl -s __TRACKED_VAR__/__TRACKED_VAR__ -o /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/__TRACKED_VAR__)"
+    ]
+  }
+}
