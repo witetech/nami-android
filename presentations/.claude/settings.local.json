@@ -5,7 +5,13 @@
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(mkdir -p /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/assets /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/references)",
-      "Bash(curl -s __TRACKED_VAR__/__TRACKED_VAR__ -o /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/__TRACKED_VAR__)"
+      "Bash(curl -s __TRACKED_VAR__/__TRACKED_VAR__ -o /Users/karaca/Personal/dmg-slides/.claude/skills/marp-slide/__TRACKED_VAR__)",
+      "Bash(find /Users/karaca/Wite/nami-android -type d -name \"*viewmodel*\" -o -type d -name \"*domain*\" -o -type d -name \"*data*\" | sort)",
+      "Bash(cat /Users/karaca/Wite/nami-android/presentations/1-architecture-and-design-patterns.md > /tmp/arch-backup.md && echo \"backed up\")",
+      "Bash(python3 -m json.tool)",
+      "Bash(find /Users/karaca/Wite/nami-android/demo-architecture -type f | sort)",
+      "WebFetch(domain:proandroiddev.com)",
+      "WebFetch(domain:medium.com)"
     ]
   }
 }
