@@ -11,7 +11,8 @@
       "Bash(python3 -m json.tool)",
       "Bash(find /Users/karaca/Wite/nami-android/demo-architecture -type f | sort)",
       "WebFetch(domain:proandroiddev.com)",
-      "WebFetch(domain:medium.com)"
+      "WebFetch(domain:medium.com)",
+      "Bash(npx @marp-team/marp-cli@latest 1-architecture-and-design-patterns.md --pdf --allow-local-files -o output/1-architecture-and-design-patterns.pdf)"
     ]
   }
 }
