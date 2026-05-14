@@ -8,6 +8,8 @@ Whether you're an intermediate developer solidifying your foundations or an expe
 
 This course is built around **Nami** — a unified AI chat app that brings all major LLMs into a single seamless experience. Rather than isolated examples, every concept is applied directly to a production-grade codebase as you build Nami from the ground up. By the end, you won't just have knowledge — you'll have a **fully functional, shippable application**.
 
+![image](images/og-image.png)
+
 ## Course Modules
 
 ### Module 1 — Architecture & Design Patterns
