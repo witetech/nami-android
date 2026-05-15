@@ -29,8 +29,8 @@ android {
 dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.auth)
@@ -42,4 +42,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(project(":design-system"))
     implementation(project(":viewmodel"))
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
 }

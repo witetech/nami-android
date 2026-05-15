@@ -10,10 +10,12 @@ firebaseCrashlytics = "3.0.7"
 googleServices = "4.4.4"
 googleid = "1.2.0"
 jetbrainsKotlinJvm = "2.3.21"
+junit = "4.13.2"
 kotlin = "2.3.21"
 kover = "0.9.8"
 ktlint = "14.2.0"
 lifecycleRuntimeKtx = "2.10.0"
+mockito = "6.3.0"
 navigation = "2.9.8"
 
 [libraries]
@@ -39,6 +41,8 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
