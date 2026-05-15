@@ -11,6 +11,7 @@ googleServices = "4.4.4"
 googleid = "1.2.0"
 jetbrainsKotlinJvm = "2.3.21"
 kotlin = "2.3.21"
+kover = "0.9.8"
 ktlint = "14.2.0"
 lifecycleRuntimeKtx = "2.10.0"
 navigation = "2.9.8"
@@ -47,4 +48,5 @@ google-services = { id = "com.google.gms.google-services", version.ref = "google
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

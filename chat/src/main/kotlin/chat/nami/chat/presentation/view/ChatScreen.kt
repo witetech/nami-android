@@ -36,13 +36,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chat.nami.chat.R
 import chat.nami.chat.domain.model.Message
 import chat.nami.chat.presentation.viewmodel.ChatState
 import chat.nami.chat.presentation.viewmodel.ChatViewModel
-import chat.nami.design.NamiTheme
 
 @Composable
 internal fun ChatScreen(viewModel: ChatViewModel) {
@@ -55,7 +53,7 @@ internal fun ChatScreen(viewModel: ChatViewModel) {
 }
 
 @Composable
-private fun Content(state: ChatState, onInputChange: (String) -> Unit, onSendClick: () -> Unit) {
+internal fun Content(state: ChatState, onInputChange: (String) -> Unit, onSendClick: () -> Unit) {
     Scaffold(
         modifier = Modifier.imePadding(),
         bottomBar = {
@@ -201,44 +199,4 @@ private fun Input(text: String, onInputChange: (String) -> Unit, onSendClick: ()
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun ContentPreview() {
-    NamiTheme {
-        Content(
-            state = ChatState(
-                loading = false,
-                input = "",
-                messages = listOf(
-                    Message.User(
-                        id = "1",
-                        content = "Hello! Can you explain how Jetpack Compose works?"
-                    ),
-                    Message.Assistant(
-                        id = "2",
-                        content = "Jetpack Compose is Android's modern UI toolkit. " +
-                            "It uses a declarative approach where you describe your UI as " +
-                            "functions that transform data into UI elements.",
-                        model = "Claude Sonnet 4.5"
-                    ),
-                    Message.User(
-                        id = "3",
-                        content = "That makes sense! What about state management?"
-                    ),
-                    Message.Assistant(
-                        id = "4",
-                        content =
-                        "State in Compose is managed through `remember` and `mutableStateOf`. " +
-                            "When state changes, Compose automatically recomposes the affected parts of the UI.",
-                        model = "Claude Sonnet 4.5"
-                    )
-                )
-
-            ),
-            onInputChange = {},
-            onSendClick = {}
-        )
-    }
 }

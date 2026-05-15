@@ -24,10 +24,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chat.nami.R
-import chat.nami.design.NamiTheme
 
 @Composable
 fun DrawerContent(
@@ -145,20 +143,4 @@ private fun SettingsDrawerItem(userName: String, onClick: () -> Unit) {
         selected = false,
         onClick = onClick
     )
-}
-
-@Composable
-@Preview
-private fun DrawerContentPreview() {
-    NamiTheme {
-        DrawerContent(
-            userName = "Ömer Karaca",
-            recents = mapOf(
-                "id-0" to "Android Jetpack Compose tips",
-                "id-1" to "Fix navigation bug",
-                "id-2" to "Material 3 drawer design",
-                "id-3" to "Hello World!"
-            )
-        )
-    }
 }

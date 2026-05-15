@@ -42,13 +42,11 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import chat.nami.auth.R
 import chat.nami.auth.presentation.viewmodel.LoginEvent
 import chat.nami.auth.presentation.viewmodel.LoginState
 import chat.nami.auth.presentation.viewmodel.LoginViewModel
-import chat.nami.design.NamiTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -72,7 +70,7 @@ internal fun LoginScreen(viewModel: LoginViewModel, onLoggedIn: () -> Unit) {
 }
 
 @Composable
-private fun Content(
+internal fun Content(
     state: LoginState,
     snackbarHostState: SnackbarHostState,
     onLoginClick: (Context) -> Unit
@@ -203,17 +201,5 @@ private fun Event(
                 }
             }
         }.launchIn(this)
-    }
-}
-
-@Composable
-@Preview
-private fun LoginScreenPreview() {
-    NamiTheme {
-        Content(
-            state = LoginState(loading = false),
-            snackbarHostState = SnackbarHostState(),
-            onLoginClick = {}
-        )
     }
 }
