@@ -201,4 +201,3 @@ li { font-size: 22px; }
 <!--
 Modularization is the practice of breaking a monolithic app into a graph of Gradle modules, each with a well-defined responsibility and a minimal public API. Feature modules own everything related to a single user-facing feature — the Composables, the ViewModel, the use cases, the repository implementation — so changes stay local and don't ripple across the codebase. Core modules hold the things features share: the Retrofit client, the Room database, the design system components, logging utilities. The dependency rule mirrors Clean Architecture: feature modules depend on core modules, never on each other. This keeps the build graph a DAG and lets Gradle compile unrelated modules in parallel, which pays off dramatically as the project grows. At scale, feature modules can be delivered as Play Feature Delivery modules, downloaded only when the user navigates to that feature for the first time.
 -->
-
