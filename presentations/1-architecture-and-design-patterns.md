@@ -143,6 +143,10 @@ A use case is a named, single-purpose class that executes one business operation
 
 ## Dependency Injection
 
+<style scoped>
+li { font-size: 22px; }
+</style>
+
 - Classes declare **what they need** — not how to create it
 - Dependencies are provided from the outside, making classes easy to test and replace
 - **Hilt** is the standard DI framework on Android, built on top of Dagger
@@ -156,7 +160,36 @@ Dependency Injection is the practice of supplying a class's collaborators from o
 
 ---
 
+## DI Strategies Compared
+
+<style scoped>
+table { font-size: 18px; width: 100%; }
+th { background: #4A90D9; color: white; }
+p { font-size: 20px; margin-bottom: 16px; }
+</style>
+
+Choose your DI approach based on app size and how early you want to catch errors — **Manual** for tiny apps, **Hilt** for production scale with compile-time safety, **Koin** for fast iteration with a clean DSL.
+
+| Factor | Manual | Hilt / Dagger | Koin |
+|---|---|---|---|
+| Build speed | Fast | Slow (KSP) | Fast |
+| Error detection | Manual | Compile-time | Runtime |
+| Learning curve | Low | High | Low |
+| Scalability | Poor | Excellent | Moderate |
+| KMP support | Yes | Partial | Yes |
+| Boilerplate | High | Medium | Low |
+
+<!--
+Manual DI gives you full control but falls apart as the graph grows. Hilt catches missing or mismatched bindings at compile time — you never ship a crash from a missing provider. Koin is the easiest to adopt but trades that safety for runtime resolution, so a missing binding only surfaces when that code path runs in production. For a team project like nami-android, Hilt is the right call: the build cost is a one-time investment and the compile-time guarantees pay off across the team.
+-->
+
+---
+
 ## Modularization
+
+<style scoped>
+li { font-size: 22px; }
+</style>
 
 - Split the app into independent Gradle modules with clear boundaries
 - **Feature modules** own a vertical slice: UI, domain logic, and data for one feature
