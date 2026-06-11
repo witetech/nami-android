@@ -12,6 +12,7 @@ googleid = "1.2.0"
 jetbrainsKotlinJvm = "2.3.21"
 junit = "4.13.2"
 kotlin = "2.3.21"
+kotlinxCollectionsImmutable = "0.4.0"
 kover = "0.9.8"
 ktlint = "14.2.0"
 lifecycleRuntimeKtx = "2.10.0"
@@ -42,6 +43,8 @@ firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashly
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
 
 [plugins]

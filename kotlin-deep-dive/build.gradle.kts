@@ -13,3 +13,9 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
 }
+
+dependencies {
+    implementation(libs.coroutines.core)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.collections.immutable)
+}
