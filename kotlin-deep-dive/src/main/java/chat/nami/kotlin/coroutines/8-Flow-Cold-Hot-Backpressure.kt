@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
+import kotlin.time.Duration.Companion.milliseconds
 
 // StateFlow: required initial value, replay = 1 (latest), conflated → UI state
 // SharedFlow: no initial value, configurable replay, no conflation → one-shot events
@@ -26,8 +28,22 @@ fun searchApi(q: String): Flow<String> = flow {
     emit("results for '$q'")
 }
 
+fun search(q: String): Flow<String> = flow {
+    repeat(3) {
+        delay(1000.milliseconds)
+        emit("results for $q")
+    }
+}
+
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 fun main() = runBlocking {
+    withTimeoutOrNull(1500.milliseconds) {
+        search("q").collect {
+            println(it)
+        }
+    }
+
+
     // COLD: code runs per collector
     val cold: Flow<Int> = flow {
         println("flow body running")

@@ -25,7 +25,7 @@ footer {
 ## Type System & Language Core
 
 <style scoped>
-li { font-size: 25px; }
+li { font-size: 35px; }
 </style>
 
 - Declaration-site variance & Star projection
@@ -40,6 +40,10 @@ li { font-size: 25px; }
 
 ## Functions & Functional Style
 
+<style scoped>
+li { font-size: 45px; }
+</style>
+
 - inline / noinline / crossinline — Bytecode Impact
 - Scope Functions — When Each Actually Fits
 - Local Functions & Closures & tailrec
@@ -48,7 +52,11 @@ li { font-size: 25px; }
 
 ## Classes, Initialization & Lifecycle
 
-- Initialization Order & Leaking this
+<style scoped>
+li { font-size: 45px; }
+</style>
+
+- Initialization Order
 - lateinit Internals
 - Delegated Properties
 - companion object vs Top-Level & const
@@ -57,8 +65,11 @@ li { font-size: 25px; }
 
 ## Equality, Immutability & State
 
+<style scoped>
+li { font-size: 45px; }
+</style>
+
 - == vs === & equals/hashCode Contracts
-- Data Class copy Pitfalls
 - val ≠ Immutable
 - The Cast Attack: List → MutableList
 - Backing Properties Beyond Flow
@@ -66,6 +77,10 @@ li { font-size: 25px; }
 ---
 
 ## Collections & Performance
+
+<style scoped>
+li { font-size: 45px; }
+</style>
 
 - Sequences vs Collections
 - Primitive Arrays
@@ -77,28 +92,37 @@ li { font-size: 25px; }
 ## Coroutines
 
 <style scoped>
-li { font-size: 25px; }
+li { font-size: 35px; }
 </style>
 
+- Suspend Functions & Builders
 - Structured Concurrency & Job Hierarchy
 - Dispatchers & Context Switching
 - Cooperative Cancellation
+- Timeouts & Retry
 - Exception Handling
-- Flow: Cold/Hot, Operators & Backpressure
-- Channels vs Flow & select
+
+---
+
+## Coroutines: Flow & Beyond
+
+<style scoped>
+li { font-size: 35px; }
+</style>
+
+- Flow Basics: Builders & Operators
+- Flow: Cold/Hot & Backpressure
+- Bridging Callback APIs
 - Mutex & Semaphore vs synchronized
 - Coroutine Internals: CPS & State Machines
 
 ---
 
-## Concurrency Beyond Coroutines
-
-- JMM, @Volatile & Atomics
-- Thread-Blocking Traps in Coroutines
-
----
-
 ## Error Modeling
+
+<style scoped>
+li { font-size: 45px; }
+</style>
 
 - Result&lt;T&gt; & the runCatching Trap
 - Checked Exceptions Interop & @Throws
@@ -106,25 +130,12 @@ li { font-size: 25px; }
 
 ---
 
-## Compiler, Interop & Metaprogramming
+## Modern Kotlin & Ecosystem
 
 <style scoped>
-li { font-size: 25px; }
+li { font-size: 45px; }
 </style>
-
-- KAPT vs KSP
-- Java Interop Pitfalls
-- Show Kotlin Bytecode — Recurring Demo Device
-- kotlin-reflect: Cost & R8
-- Annotations: Retention & Targets
-- Compiler Plugins: How Compose & Serialization Work
-
----
-
-## Modern Kotlin & Ecosystem
 
 - K2 Compiler & Smarter Smart Casts
 - New Language Features (2.2+)
-- Rich Errors / Union Types Roadmap
 - Multiplatform Awareness
-- Tooling & Build
