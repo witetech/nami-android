@@ -27,12 +27,13 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Nami"
+include(":accessibility")
 include(":app")
 include(":auth")
 include(":chat")
 include(":chat-history")
 include(":demo-architecture")
 include(":design-system")
+include(":kotlin-deep-dive")
 include(":settings")
 include(":viewmodel")
-include(":kotlin-deep-dive")
