@@ -95,3 +95,6 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Speaker notes
+presentations/*-notes.md
